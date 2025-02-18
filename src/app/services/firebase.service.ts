@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, UserCredential } from '@angular/fire/auth';
 import { User } from '../models/user.model';
-import { Firestore, setDoc, doc } from '@angular/fire/firestore';
+import { Firestore, setDoc, doc, getDoc } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root',
@@ -32,6 +32,11 @@ export class FirebaseService {
       // Actualiza el perfil del usuario
       await updateProfile(user, { displayName: displayName });
     }
+  }
+
+  async getDocument(path: string) {
+    const docSnap = await getDoc(doc(this.firestore,path));
+    return docSnap.data();
   }
 
   setDocument(path: string, data: any) {
