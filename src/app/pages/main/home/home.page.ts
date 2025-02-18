@@ -1,20 +1,33 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { Component, inject, OnInit } from '@angular/core';
+import { IonButton, IonContent, IonFab, IonIcon, IonFabButton } from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { add } from 'ionicons/icons';
+import { FirebaseService } from 'src/app/services/firebase.service';
+import { UtilsService } from 'src/app/services/utils.service';
+import { AddUpdateMiniatureComponent } from 'src/app/shared/components/add-update-miniature/add-update-miniature.component';
+import { HeaderComponent } from 'src/app/shared/components/header/header.component';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [IonFabButton, IonIcon, IonFab, IonButton, HeaderComponent, IonContent],
 })
 export class HomePage implements OnInit {
+  firebaseService = inject(FirebaseService);
+  utilsService = inject(UtilsService);
+  constructor() { addIcons({add});}
 
-  constructor() { }
+  ngOnInit() {}
 
-  ngOnInit() {
+  async signOut() {
+    this.firebaseService.signOut().then(() => {
+      this.utilsService.routerLink('/auth');
+    });
   }
 
+  addUpdateMiniature() {
+    this.utilsService.presentModal({ component: AddUpdateMiniatureComponent, cssClass: "add-update-modal"})
+  }
 }

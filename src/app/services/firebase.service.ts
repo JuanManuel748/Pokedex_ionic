@@ -26,12 +26,6 @@ export class FirebaseService {
     );
   }
 
-
-  async signOut() {
-    await this.auth.signOut();
-    localStorage.removeItem('user');
-  }
-
   async updateUser(displayName: string) {
     const user = await this.auth.currentUser;
     if (user) {
@@ -42,6 +36,11 @@ export class FirebaseService {
 
   sendRecoveryEmail(email: string) {
     return sendPasswordResetEmail(this.auth, email);
+  }
+
+  async signOut() {
+    await this.auth.signOut();
+    localStorage.removeItem('user');
   }
 
   async getDocument(path: string) {
