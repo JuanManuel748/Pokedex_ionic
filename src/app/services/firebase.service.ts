@@ -1,12 +1,14 @@
 import { Injectable, inject } from '@angular/core';
 import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, UserCredential } from '@angular/fire/auth';
 import { User } from '../models/user.model';
+import { Firestore, setDoc, doc } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FirebaseService {
   auth = inject(Auth);
+  firestore = inject(Firestore);
 
   signIn(user: User): Promise<UserCredential> {
     return signInWithEmailAndPassword(
@@ -30,5 +32,9 @@ export class FirebaseService {
       // Actualiza el perfil del usuario
       await updateProfile(user, { displayName: displayName });
     }
+  }
+
+  setDocument(path: string, data: any) {
+    return setDoc(doc(this.firestore, path), data);
   }
 }
