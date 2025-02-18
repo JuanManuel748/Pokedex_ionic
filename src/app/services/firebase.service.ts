@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Auth, signInWithEmailAndPassword, UserCredential } from '@angular/fire/auth';
+import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, UserCredential } from '@angular/fire/auth';
 import { User } from '../models/user.model';
 
 @Injectable({
@@ -14,5 +14,21 @@ export class FirebaseService {
       user.email,
       user.password
     );
+  }
+
+  signUp(user: User): Promise<UserCredential> {
+    return createUserWithEmailAndPassword(
+      this.auth,
+      user.email,
+      user.password
+    );
+  }
+
+  async updateUser(displayName: string) {
+    const user = await this.auth.currentUser;
+    if (user) {
+      // Actualiza el perfil del usuario
+      await updateProfile(user, { displayName: displayName });
+    }
   }
 }

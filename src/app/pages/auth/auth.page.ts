@@ -63,7 +63,7 @@ export class AuthPage implements OnInit {
   }
 
   ngOnInit() {
-    console.log('Auth Page');
+    console.log('AuthPage initialized');
   }
 
   async submit() {
