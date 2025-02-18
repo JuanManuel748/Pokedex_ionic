@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, UserCredential } from '@angular/fire/auth';
+import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, UserCredential, sendPasswordResetEmail } from '@angular/fire/auth';
 import { User } from '../models/user.model';
 import { Firestore, setDoc, doc, getDoc } from '@angular/fire/firestore';
 
@@ -32,6 +32,10 @@ export class FirebaseService {
       // Actualiza el perfil del usuario
       await updateProfile(user, { displayName: displayName });
     }
+  }
+
+  sendRecoveryEmail(email: string) {
+    return sendPasswordResetEmail(this.auth, email);
   }
 
   async getDocument(path: string) {
