@@ -40,6 +40,8 @@ export class AddUpdateMiniatureComponent implements OnInit {
     });
   }
   ngOnInit() {}
+
+
   async signOut() {
     this.firebaseService.signOut().then(() => {
       this.utilsService.routerLink('/auth');
