@@ -4,6 +4,8 @@ import {
   LoadingController,
   ToastController,
   ToastOptions,
+  ModalController,
+  ModalOptions,
 } from '@ionic/angular/standalone';
 
 @Injectable({
@@ -13,6 +15,7 @@ export class UtilsService {
   loadingController = inject(LoadingController);
   toastController = inject(ToastController);
   router = inject(Router);
+  modalController = inject(ModalController);
 
   loading() {
     return this.loadingController.create({ spinner: 'crescent' });
@@ -38,6 +41,20 @@ export class UtilsService {
   getFromLocalStorage(key: string) {
     const value = localStorage.getItem(key);
     return value ? JSON.parse(value) : value;
+  }
+
+  async presentModal(modalOptions: ModalOptions) {
+    const modal = await this.modalController.create(modalOptions);
+
+    await modal.present();
+
+    const { data } = await modal.onWillDismiss();
+
+    return data ?? null;
+  }
+
+  dismissModal(data?: any) {
+    return this.modalController.dismiss(data);
   }
 
   constructor() {}
