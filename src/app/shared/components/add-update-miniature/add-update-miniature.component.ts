@@ -1,22 +1,47 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import {IonContent, IonIcon, IonHeader, IonToolbar, IonFabButton, IonFab } from '@ionic/angular/standalone';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import {
+  IonContent,
+  IonIcon,
+  IonHeader,
+  IonToolbar,
+} from '@ionic/angular/standalone';
 import { HeaderComponent } from 'src/app/shared/components/header/header.component';
 import { CustomInputComponent } from 'src/app/shared/components/custom-input/custom-input.component';
 import { addIcons } from 'ionicons';
-import { lockClosedOutline, mailOutline, personAddOutline, personOutline, alertCircleOutline } from 'ionicons/icons';
+import {
+  lockClosedOutline,
+  mailOutline,
+  personAddOutline,
+  personOutline,
+  alertCircleOutline,
+} from 'ionicons/icons';
 import { IonButton } from '@ionic/angular/standalone';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { User } from 'src/app/models/user.model';
 import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
-  selector: 'app-home',
+  selector: 'app-add-update-miniature',
   templateUrl: './add-update-miniature.component.html',
   styleUrls: ['./add-update-miniature.component.scss'],
-  standalone: true,
-  imports: [IonFabButton, IonIcon, IonFab, IonButton, HeaderComponent, IonContent],
+  imports: [
+    IonIcon,
+    HeaderComponent,
+    IonContent,
+    CommonModule,
+    FormsModule,
+    CustomInputComponent,
+    ReactiveFormsModule,
+    IonButton,
+  ],
 })
 export class AddUpdateMiniatureComponent implements OnInit {
   firebaseService = inject(FirebaseService);
@@ -40,13 +65,6 @@ export class AddUpdateMiniatureComponent implements OnInit {
     });
   }
   ngOnInit() {}
-
-
-  async signOut() {
-    this.firebaseService.signOut().then(() => {
-      this.utilsService.routerLink('/auth');
-    });
-  }
   async submit() {
     if (this.form.valid) {
       const loading = await this.utilsService.loading();
@@ -70,9 +88,5 @@ export class AddUpdateMiniatureComponent implements OnInit {
           loading.dismiss();
         });
     }
-  }
-
-  addUpdateMiniature() {
-    this.utilsService.presentModal({ component: AddUpdateMiniatureComponent, cssClass: "add-update-modal"})
   }
 }
