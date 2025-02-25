@@ -12,6 +12,7 @@ import {
   uploadString,
   ref,
   getDownloadURL,
+  deleteObject
 } from '@angular/fire/storage';
 import { User } from '../models/user.model';
 import {
@@ -20,9 +21,11 @@ import {
   doc,
   getDoc,
   addDoc,
+  updateDoc,
   collection,
   collectionData,
   query,
+  deleteDoc,
 } from '@angular/fire/firestore';
 
 @Injectable({
@@ -81,13 +84,22 @@ export class FirebaseService {
   setDocument(path: string, data: any) {
     return setDoc(doc(this.firestore, path), data);
   }
+
+  updateDocument(path: string, data: any) {
+    return updateDoc(doc(this.firestore, path), data);
+  }
+
+  deleteDocument(path: string) {
+    return deleteDoc(doc(this.firestore, path));
+  }
+
   addDocument(path: string, data: any) {
     return addDoc(collection(this.firestore, path), data);
   }
 
   getCollectionData(path: string, collectionQuery?: any) {
     const ref = collection(this.firestore, path);
-    return collectionData(query(ref, collectionQuery));
+    return collectionData(query(ref, collectionQuery), {idField: 'id'});
   }
 
   async uploadImage(path: string, imageUrl: string) {
@@ -96,5 +108,13 @@ export class FirebaseService {
         return getDownloadURL(ref(this.storage, path));
       }
     );
+  }
+
+  async getFilePath(url: string) {
+    return ref(this.storage, url).fullPath
+  }
+
+  async deleteFile(path: string) {
+    return deleteObject(ref(this.storage, path));
   }
 }
