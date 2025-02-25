@@ -17,6 +17,7 @@ import {
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { add, createOutline, trashOutline } from 'ionicons/icons';
+import { min } from 'rxjs';
 import { Miniature } from 'src/app/models/miniature.model';
 import { User } from 'src/app/models/user.model';
 import { FirebaseService } from 'src/app/services/firebase.service';
@@ -46,7 +47,6 @@ import { HeaderComponent } from 'src/app/shared/components/header/header.compone
     CommonModule,
   ],
 })
-
 export class HomePage implements OnInit {
   firebaseService = inject(FirebaseService);
   utilsService = inject(UtilsService);
@@ -70,14 +70,74 @@ export class HomePage implements OnInit {
     });
   }
 
-  addUpdateMiniature() {
-    this.utilsService.presentModal({
+  async addUpdateMiniature(miniature?: Miniature) {
+    let success = await this.utilsService.presentModal({
       component: AddUpdateMiniatureComponent,
       cssClass: 'add-update-modal',
+      componentProps: { miniature },
     });
+    if (success) {
+      this.getMiniatures();
+    }
   }
 
   ionViewWillEnter() {
     this.getMiniatures();
+  }
+
+  async deleteMiniature(miniature: Miniature) {
+    const loading = await this.utilsService.loading();
+    await loading.present();
+    const user: User = this.utilsService.getLocalStoredUser()!;
+    const path: string = `users/${user.uid}/miniatures/${miniature!.id}`;
+
+    const imagePath = await this.firebaseService.getFilePath(miniature!.image);
+    await this.firebaseService.deleteFile(imagePath);
+    this.firebaseService
+      .deleteDocument(path)
+      .then(async (res) => {
+        this.miniatures = this.miniatures.filter(
+          (listedMiniature) => listedMiniature.id !== miniature.id
+        );
+        this.utilsService.presentToast({
+          message: 'Mininatura borrada exitosamente',
+          duration: 1500,
+          color: 'success',
+          position: 'middle',
+          icon: 'checkmark-circle-outline',
+        });
+      })
+      .catch((error) => {
+        this.utilsService.presentToast({
+          message: error.message,
+          duration: 2500,
+          color: 'danger',
+          position: 'middle',
+          icon: 'alert-circle-outline',
+        });
+      })
+      .finally(() => {
+        loading.dismiss();
+      });
+  }
+
+  async confirmDeleteMiniature(miniature: Miniature) {
+    this.utilsService.presentAlert({
+      header: 'Eliminar miniatura',
+      message: '¿Está seguro de que desea eliminar la miniatura?',
+      mode: 'ios',
+      buttons: [
+        {
+          text: 'No',
+        },
+        {
+          text: 'Sí',
+          handler: () => {
+            this.deleteMiniature(miniature);
+
+          },
+        },
+      ],
+    });
   }
 }
