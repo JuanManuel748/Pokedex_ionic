@@ -5,7 +5,6 @@ import {
   IonFab,
   IonIcon,
   IonFabButton,
-  IonButton,
   IonLabel,
   IonItemOption,
   IonItemOptions,
@@ -13,25 +12,23 @@ import {
   IonItem,
   IonAvatar,
   IonList,
-  IonChip,
-} from '@ionic/angular/standalone';
+  IonChip, IonSkeletonText } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { add, createOutline, trashOutline } from 'ionicons/icons';
-import { min } from 'rxjs';
+import { add, createOutline, trashOutline, bodyOutline } from 'ionicons/icons';
 import { Miniature } from 'src/app/models/miniature.model';
 import { User } from 'src/app/models/user.model';
 import { FirebaseService } from 'src/app/services/firebase.service';
+import { SupabaseService } from 'src/app/services/supabase.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { AddUpdateMiniatureComponent } from 'src/app/shared/components/add-update-miniature/add-update-miniature.component';
 import { HeaderComponent } from 'src/app/shared/components/header/header.component';
-import {SupabaseService} from "../../../services/supabase.service";
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
   standalone: true,
-  imports: [
+  imports: [IonSkeletonText,
     IonChip,
     IonList,
     IonAvatar,
@@ -53,13 +50,15 @@ export class HomePage implements OnInit {
   utilsService = inject(UtilsService);
   supabaseService = inject(SupabaseService);
   miniatures: Miniature[] = [];
+  loading: boolean = false;
   constructor() {
-    addIcons({ createOutline, trashOutline, add });
+    addIcons({ createOutline, trashOutline, bodyOutline, add });
   }
 
   ngOnInit() {}
 
   getMiniatures() {
+    this.loading = true;
     const user: User = this.utilsService.getLocalStoredUser()!;
     const path: string = `users/${user.uid}/miniatures`;
 
@@ -68,6 +67,7 @@ export class HomePage implements OnInit {
         sub.unsubscribe();
 
         this.miniatures = res;
+        this.loading = false;
       },
     });
   }
@@ -136,7 +136,6 @@ export class HomePage implements OnInit {
           text: 'Sí',
           handler: () => {
             this.deleteMiniature(miniature);
-
           },
         },
       ],
