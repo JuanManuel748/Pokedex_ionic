@@ -1,6 +1,10 @@
 <app-header title="Inicio"></app-header>
 
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
   <ion-list *ngIf="!loading">
     <ion-item-sliding
       *ngFor="let miniature of miniatures"
@@ -54,7 +58,7 @@
     </ion-item>
   </ion-list>
 
-  <div *ngIf="!loading && miniatures.length == 0 " class="empty">
+  <div *ngIf="!loading && miniatures.length === 0 " class="empty">
     <ion-icon name="body-outline"></ion-icon>
     <h3>Aún no has agregado ninguna miniatura</h3>
   </div>
