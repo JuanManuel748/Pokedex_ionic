@@ -27,6 +27,7 @@ import {
 } from 'ionicons/icons';
 import { IonButton, IonAvatar } from '@ionic/angular/standalone';
 import { FirebaseService } from 'src/app/services/firebase.service';
+import { SupabaseService } from 'src/app/services/supabase.service';
 import { User } from 'src/app/models/user.model';
 import { UtilsService } from 'src/app/services/utils.service';
 import { Miniature } from 'src/app/models/miniature.model';
@@ -50,6 +51,7 @@ import { Miniature } from 'src/app/models/miniature.model';
 export class AddUpdateMiniatureComponent implements OnInit {
   @Input() miniature: Miniature | null = null;
   firebaseService = inject(FirebaseService);
+  supabaseService = inject(SupabaseService);
   utilsService = inject(UtilsService);
 
   user = {} as User;
@@ -106,7 +108,7 @@ export class AddUpdateMiniatureComponent implements OnInit {
     const path: string = `users/${this.user.uid}/miniatures`;
     const imageDataUrl = this.form.value.image;
     const imagePath = `${this.user.uid}/${Date.now()}`;
-    const imageUrl = await this.firebaseService.uploadImage(
+    const imageUrl = await this.supabaseService.uploadImage(
       imagePath,
       imageDataUrl!
     );
@@ -146,10 +148,10 @@ export class AddUpdateMiniatureComponent implements OnInit {
     const path: string = `users/${this.user.uid}/miniatures/${this.miniature!.id}`;
     if (this.form.value.image != this.miniature!.image) {
       const imageDataUrl = this.form.value.image;
-      const oldImagePath = await this.firebaseService.getFilePath(this.miniature!.image);
-      await this.firebaseService.deleteFile(oldImagePath);
+      const oldImagePath = await this.supabaseService.getFilePath(this.miniature!.image);
+      await this.supabaseService.deleteFile(oldImagePath!);
       const imagePath = `${this.user.uid}/${Date.now()}`;
-      const imageUrl = await this.firebaseService.uploadImage(
+      const imageUrl = await this.supabaseService.uploadImage(
         imagePath,
         imageDataUrl!
       );

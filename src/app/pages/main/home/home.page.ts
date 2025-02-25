@@ -24,6 +24,7 @@ import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { AddUpdateMiniatureComponent } from 'src/app/shared/components/add-update-miniature/add-update-miniature.component';
 import { HeaderComponent } from 'src/app/shared/components/header/header.component';
+import {SupabaseService} from "../../../services/supabase.service";
 
 @Component({
   selector: 'app-home',
@@ -50,6 +51,7 @@ import { HeaderComponent } from 'src/app/shared/components/header/header.compone
 export class HomePage implements OnInit {
   firebaseService = inject(FirebaseService);
   utilsService = inject(UtilsService);
+  supabaseService = inject(SupabaseService);
   miniatures: Miniature[] = [];
   constructor() {
     addIcons({ createOutline, trashOutline, add });
@@ -91,8 +93,8 @@ export class HomePage implements OnInit {
     const user: User = this.utilsService.getLocalStoredUser()!;
     const path: string = `users/${user.uid}/miniatures/${miniature!.id}`;
 
-    const imagePath = await this.firebaseService.getFilePath(miniature!.image);
-    await this.firebaseService.deleteFile(imagePath);
+    const imagePath = await this.supabaseService.getFilePath(miniature!.image);
+    await this.supabaseService.deleteFile(imagePath!);
     this.firebaseService
       .deleteDocument(path)
       .then(async (res) => {
