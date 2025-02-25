@@ -14,6 +14,8 @@ import {
   IonList,
   IonChip,
   IonSkeletonText,
+  IonRefresher,
+  IonRefresherContent,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { add, createOutline, trashOutline, bodyOutline } from 'ionicons/icons';
@@ -32,6 +34,8 @@ import { QueryOptions } from 'src/app/services/query-options.interface';
   styleUrls: ['./home.page.scss'],
   standalone: true,
   imports: [
+    IonRefresherContent,
+    IonRefresher,
     IonSkeletonText,
     IonChip,
     IonList,
@@ -70,16 +74,36 @@ export class HomePage implements OnInit {
       orderBy: { field: 'strength', direction: 'desc' },
     };
 
-    let sub = this.firebaseService
+    let timer: any;
+    const resetTimer = () => {
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(() => {
+        console.log(
+          'No hay más novedades en 5 segundos. Cancelando suscripción.'
+        );
+        sub.unsubscribe();
+        this.loading = false;
+      }, 5000);
+    };
+
+    const sub = this.firebaseService
       .getCollectionData(path, queryOptions)
       .subscribe({
         next: (res: any) => {
-          sub.unsubscribe();
-
           this.miniatures = res;
           this.loading = false;
+
+          resetTimer();
+        },
+        error: (error) => {
+          console.error('Error al obtener los datos:', error);
+          this.loading = false;
+
+          if (timer) clearTimeout(timer);
         },
       });
+
+    resetTimer();
   }
 
   async addUpdateMiniature(miniature?: Miniature) {
@@ -95,7 +119,13 @@ export class HomePage implements OnInit {
 
   ionViewWillEnter() {
     this.getMiniatures();
-    console.log(this.miniatures);
+  }
+
+  doRefresh(event: any) {
+    setTimeout(() => {
+      this.getMiniatures();
+      event.target.complete();
+    }, 2000);
   }
 
   async deleteMiniature(miniature: Miniature) {
