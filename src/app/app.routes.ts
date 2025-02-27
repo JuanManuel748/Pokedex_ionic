@@ -46,13 +46,11 @@ export const routes: Routes = [
             (m) => m.ProfilePage
           ),
       },
-      {
-        path: 'sensors',
-        loadComponent: () =>
-          import('./pages/main/sensors/sensors.page').then(
-            (m) => m.SensorsPage
-          ),
-      },
     ],
   },
+  {
+    path: 'sensors',
+    loadComponent: () => import('./pages/main/sensors/sensors.page').then( m => m.SensorsPage)
+  },
+
 ];
