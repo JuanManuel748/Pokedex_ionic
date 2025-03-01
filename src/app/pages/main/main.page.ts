@@ -46,6 +46,11 @@ export class MainPage implements OnInit {
       url: '/main/sensors',
       icon: 'hardware-chip-outline',
     },
+    {
+      title: 'Pokedex',
+      url: '/main/pokedex',
+      icon: 'hardware-chip-outline',
+    }
   ];
 
   user: User;

@@ -53,6 +53,18 @@ export const routes: Routes = [
             (m) => m.SensorsPage
           ),
       },
+      {
+        path: 'pokedex',
+        loadComponent: () =>
+          import('./pages/main/pokedex/pokedex.page').then(
+            (m) => m.PokedexPage
+          ),
+      }
     ],
   },
+  {
+    path: 'pokedex',
+    loadComponent: () => import('./pages/main/pokedex/pokedex.page').then( m => m.PokedexPage)
+  },
+
 ];
