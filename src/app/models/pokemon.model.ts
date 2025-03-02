@@ -89,6 +89,6 @@ export const examplePokemon: Pokemon = {
     specialDefense: 65,
     speed: 45
   },
-  description: 'For some time after its birth, it grows by gaining nourishment from the seed on its back.'
+  description: 'Una rara semilla le fue plantada en el lomo al nacer. La planta brota y crece con este Pokemon.'
 
 }

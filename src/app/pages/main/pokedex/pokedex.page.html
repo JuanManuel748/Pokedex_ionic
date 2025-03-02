@@ -9,21 +9,20 @@
             type="text"
             placeholder="Buscar Pokémon"
             id="search_input"
+            [(ngModel)]="searchInput"
           />
-          <button onClick=search()><img src="assets/lupa.png" alt="Buscar"></button>
-
+          <button (click)="search($event)"><img src="assets/lupa.png" alt="Buscar"></button>
         </div>
 
         <div class="content">
           <div class="img_poke">
-              <img src="{{ selectedPokemon?.sprites?.front_default }}" alt="Foto del Pokémon">
-
+            <img [src]="selectedPokemon?.sprites?.front_default" alt="Foto del Pokémon" *ngIf="selectedPokemon?.sprites?.front_default"/>
           </div>
           <div class="types_poke">
-          <span
-            *ngFor="let tp of selectedPokemon?.types ?? []"
-            class="type {{ tp.name }}"
-          >{{ tp.name }}</span>
+            <span
+              *ngFor="let tp of selectedPokemon?.types ?? []"
+              [ngClass]="getTypeClass(tp.name)"
+            >{{ tp.name }}</span>
           </div>
           <div class="sizes_poke">
             <div class="size">
@@ -38,6 +37,7 @@
         </div>
 
         <div class="alternate_poke">
+          <button (click)="alternate($event)" id="alternate_btn">{{ buttonText }}</button>
           <div class="description_poke" *ngIf="showDetails">
             <div class="_ngcontent-cet-c7"></div>
             <p>{{ selectedPokemon?.description }}</p>

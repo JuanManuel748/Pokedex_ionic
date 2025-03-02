@@ -1,3 +1,4 @@
+@import './pokedex.pages.types';
 .pokedex {
 
 }
@@ -17,7 +18,7 @@
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  box-shadow: 0 -2px 0 2px #000; /* Añade un borde negro alrededor del medio círculo */
+  //box-shadow: 0 -2px 0 2px #000; /* Añade un borde negro alrededor del medio círculo */
 
 }
 .top_pokedex::before {
@@ -97,6 +98,7 @@
   background: #83a8f1;
   border: #0037a2 2px solid;
   border-radius: 20px;
+  width: 50%;
 }
 
 .name_poke button {
@@ -123,14 +125,14 @@
   display: grid;
   grid-template-areas: "img_poke types_poke"
                        "img_poke sizes_poke";
-  padding: 10px;
+  grid-template-columns: 1.2fr 0.8fr;
+  padding: 20px;
 }
 
 .img_poke {
   grid-area: img_poke;
-  padding-top: 10%;
-  padding-left: 20%;
   justify-items: center;
+  padding: 20px;
 
   background-color: #d3ecf6;
   background-image: linear-gradient(45deg, #c4e8f8 25%, transparent 25%, transparent 75%, #c4e8f8 75%, #c4e8f8), linear-gradient(-45deg, #c4e8f8 25%, transparent 25%, transparent 75%, #c4e8f8 75%, #c4e8f8);
@@ -155,7 +157,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 5px;
+  padding-left: 20px;
 
 }
 
@@ -167,28 +169,31 @@
   padding: 10px 20px;
   margin: 5px;
   display: inline-block;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
 }
 
 
 .sizes_poke {
   grid-area: sizes_poke;
+  padding-bottom: 20px;
   display: grid;
   padding-left: 20px;
 
 }
 .sizes_poke .size {
   margin: 5px;
-  display: inline-block;
-
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: #67bcea;
   border-radius: 10px;
   color: #f0fbff;
   text-align: center;
-  padding: 10px;
+  padding: 5px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-
 }
 .sizes_poke .size span {
+  margin-right: 10px;
   font-weight: bold;
   color: #0037a2;
 }
@@ -204,6 +209,17 @@
   background: repeating-linear-gradient(0deg, #cce486, #cce486 2px, #bfd678 2px, #bfd678 4px);  background-size: 20px 20px;
   font-size: larger;
   padding: 10px;
+}
+
+.alternate_poke button {
+  background: #BD1023;
+  border-radius: 10px;
+  padding: 5px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 2px 5px #0003;
+  margin-bottom: 20px;
+  font-size: 1.2em;
 }
 .description_poke {
   border-radius: 10px;
@@ -245,4 +261,28 @@
 .stats_poke .stat span {
   font-weight: bold;
   color: #0037a2;
+}
+
+
+
+@media
+  (max-width: 500px) {
+    .content {
+      grid-template-areas: "img_poke"
+                           "types_poke"
+                           "sizes_poke";
+      grid-template-columns: 1fr;
+    }
+    .content .types_poke {
+      justify-content: center;
+    }
+    .sizes_poke {
+      padding-left: 0;
+    }
+    .description_poke {
+      grid-template-columns: 1fr;
+    }
+    .stats_poke {
+      grid-template-columns: 1fr;
+    }
 }
