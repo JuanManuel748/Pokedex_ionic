@@ -31,7 +31,7 @@ import {
   limit,
 } from '@angular/fire/firestore';
 import { QueryOptions } from './query-options.interface';
-import { Party } from '../models/pokemon.model';
+import {ownedPokemon, Party} from '../models/pokemon.model';
 
 @Injectable({
   providedIn: 'root',
@@ -146,23 +146,23 @@ export class FirebaseService {
     return deleteObject(ref(this.storage, path));
   }
 
-  // Añadir métodos en FirebaseService para manejar equipos Pokémon
-  async getParties(userId: string): Promise<Party[]> {
-    const path = `users/${userId}/parties`;
+  // Añadir métodos en FirebaseService para manejar ownedPokemon
+  async getPokemons(userId: string): Promise<ownedPokemon[]> {
+    const path = `users/${userId}/pokemons`;
     const queryOptions: QueryOptions = {
       orderBy: { field: 'name', direction: 'asc' },
     };
     const data = await this.getCollectionData(path, queryOptions).toPromise();
-    return (data as Party[]) || [];
+    return (data as ownedPokemon[]) || [];
   }
 
-  async addParty(userId: string, party: Party): Promise<void> {
-    const path = `users/${userId}/parties`;
-    await this.addDocument(path, party);
+  async addPokemon(userId: string, pokemon: ownedPokemon): Promise<void> {
+    const path = `users/${userId}/pokemons`;
+    await this.addDocument(path, pokemon);
   }
 
-  async deleteParty(userId: string, partyId: string): Promise<void> {
-    const path = `users/${userId}/parties/${partyId}`;
+  async deletePokemon(userId: string, pokemonId: string): Promise<void> {
+    const path = `users/${userId}/pokemons/${pokemonId}`;
     await this.deleteDocument(path);
   }
 }

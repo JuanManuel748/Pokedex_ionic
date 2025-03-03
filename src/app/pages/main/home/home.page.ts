@@ -12,10 +12,9 @@ import {
   IonItem,
   IonAvatar,
   IonList,
-  IonChip,
   IonSkeletonText,
   IonRefresher,
-  IonRefresherContent, IonCard } from '@ionic/angular/standalone';
+  IonRefresherContent } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { add, createOutline, trashOutline, bodyOutline } from 'ionicons/icons';
 import { Miniature } from 'src/app/models/miniature.model';
@@ -23,22 +22,20 @@ import { User } from 'src/app/models/user.model';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { SupabaseService } from 'src/app/services/supabase.service';
 import { UtilsService } from 'src/app/services/utils.service';
-import { AddUpdateMiniatureComponent } from 'src/app/shared/components/add-update-miniature/add-update-miniature.component';
 import { HeaderComponent } from 'src/app/shared/components/header/header.component';
 import { QueryOptions } from 'src/app/services/query-options.interface';
-import { Party } from 'src/app/models/pokemon.model';
-import {AddUpdatePartyComponent} from "../../../shared/components/add-update-party/add-update-party.component";
+import {ownedPokemon, Party} from 'src/app/models/pokemon.model';
+import {AddUpdatePokemonComponent} from "../../../shared/components/add-update-pokemon/add-update-pokemon.component";
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
   standalone: true,
-  imports: [IonCard,
+  imports: [
     IonRefresherContent,
     IonRefresher,
     IonSkeletonText,
-    IonChip,
     IonList,
     IonAvatar,
     IonItem,
@@ -60,7 +57,7 @@ export class HomePage implements OnInit {
   supabaseService = inject(SupabaseService);
   miniatures: Miniature[] = [];
   loading: boolean = false;
-  parties: Party[] = [];
+  pokemons: ownedPokemon[] = [];
 
 
   constructor() {
@@ -68,176 +65,83 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit() {
-    this.getParties();
+    this.getPokemons();
   }
 
-  getParties() {
+  getPokemons() {
     this.loading = true;
     const user: User = this.utilsService.getLocalStoredUser()!;
-    this.firebaseService.getParties(user.uid).then((parties) => {
-      this.parties = parties;
-      this.loading = false;
-    }).catch((error) => {
-      console.error('Error al obtener los equipos:', error);
-      this.loading = false;
+    const path: string = `users/${user.uid}/pokemons`;
+    const queryOptions: QueryOptions = {
+      orderBy: { field: 'idPoke', direction: 'asc' },
+    }
+
+    let timer: any;
+
+    const resetTimer = () => {
+      if (timer) {
+        clearTimeout(timer);
+      }
+      timer = setTimeout(() => {
+        sub.unsubscribe();
+
+      }, 5000)
+    };
+
+    let sub = this.firebaseService.getCollectionData(path, queryOptions).subscribe({
+      next: (res: any) => {
+        this.pokemons = res;
+        this.loading = false;
+        resetTimer();
+      },
     });
+
+
   }
 
-  async addUpdateParty(party?: Party) {
+  async addUpdatePokemon(pokemon?: ownedPokemon) {
     let success = await this.utilsService.presentModal({
-      component: AddUpdatePartyComponent,
+      component: AddUpdatePokemonComponent,
       cssClass: 'add-update-modal',
-      componentProps: { party },
+      componentProps: { pokemon },
     });
     if (success) {
-      this.getParties();
+      this.getPokemons();
     }
   }
 
-  async deleteParty(party: Party) {
+  async deletePokemon(pokemon: ownedPokemon) {
     const loading = await this.utilsService.loading();
     await loading.present();
     const user: User = this.utilsService.getLocalStoredUser()!;
-    await this.firebaseService.deleteParty(user.uid, party.id!);
-    this.parties = this.parties.filter(p => p.id !== party.id);
+    await this.firebaseService.deletePokemon(user.uid, pokemon.id!.toString());
+    this.pokemons = this.pokemons.filter(p => p.id !== pokemon.id);
     loading.dismiss();
   }
 
-  async confirmDeleteParty(party: Party) {
+  async confirmDeletePokemon(pokemon: ownedPokemon) {
     this.utilsService.presentAlert({
-      header: 'Eliminar equipo',
-      message: '¿Está seguro de que desea eliminar el equipo?',
+      header: 'Eliminar Pokémon',
+      message: '¿Está seguro de que desea eliminar el Pokémon?',
       mode: 'ios',
       buttons: [
         { text: 'No' },
-        { text: 'Sí', handler: () => this.deleteParty(party) },
+        { text: 'Sí', handler: () => this.deletePokemon(pokemon) },
       ],
     });
   }
 
 
-  getMiniatures() {
-    this.loading = true;
-    const user: User = this.utilsService.getLocalStoredUser()!;
-    const path: string = `users/${user.uid}/miniatures`;
-
-    const queryOptions: QueryOptions = {
-      orderBy: { field: 'strength', direction: 'desc' },
-    };
-
-    let timer: any;
-    const resetTimer = () => {
-      if (timer) clearTimeout(timer);
-      timer = setTimeout(() => {
-        console.log(
-          'No hay más novedades en 5 segundos. Cancelando suscripción.'
-        );
-        sub.unsubscribe();
-        this.loading = false;
-      }, 5000);
-    };
-
-    const sub = this.firebaseService
-      .getCollectionData(path, queryOptions)
-      .subscribe({
-        next: (res: any) => {
-          this.miniatures = res;
-          this.loading = false;
-
-          resetTimer();
-        },
-        error: (error) => {
-          console.error('Error al obtener los datos:', error);
-          this.loading = false;
-
-          if (timer) clearTimeout(timer);
-        },
-      });
-
-    resetTimer();
-  }
-
-  getTotalPower() {
-    return this.miniatures.reduce((accumulator, miniature) =>  accumulator + miniature.strength * miniature.units, 0)
-  }
-
-  async addUpdateMiniature(miniature?: Miniature) {
-    let success = await this.utilsService.presentModal({
-      component: AddUpdateMiniatureComponent,
-      cssClass: 'add-update-modal',
-      componentProps: { miniature },
-    });
-    if (success) {
-      this.getMiniatures();
-    }
-  }
-
-  ionViewWillEnter() {
-    this.getMiniatures();
-  }
 
   doRefresh(event: any) {
     setTimeout(() => {
-      this.getMiniatures();
+      this.getPokemons();
       event.target.complete();
     }, 2000);
   }
 
-  async deleteMiniature(miniature: Miniature) {
-    const loading = await this.utilsService.loading();
-    await loading.present();
-    const user: User = this.utilsService.getLocalStoredUser()!;
-    const path: string = `users/${user.uid}/miniatures/${miniature!.id}`;
-
-    const imagePath = await this.supabaseService.getFilePath(miniature!.image);
-    await this.supabaseService.deleteFile(imagePath!);
-    this.firebaseService
-      .deleteDocument(path)
-      .then(async (res) => {
-        this.miniatures = this.miniatures.filter(
-          (listedMiniature) => listedMiniature.id !== miniature.id
-        );
-        this.utilsService.presentToast({
-          message: 'Mininatura borrada exitosamente',
-          duration: 1500,
-          color: 'success',
-          position: 'middle',
-          icon: 'checkmark-circle-outline',
-        });
-      })
-      .catch((error) => {
-        this.utilsService.presentToast({
-          message: error.message,
-          duration: 2500,
-          color: 'danger',
-          position: 'middle',
-          icon: 'alert-circle-outline',
-        });
-      })
-      .finally(() => {
-        loading.dismiss();
-      });
-  }
-
-  async confirmDeleteMiniature(miniature: Miniature) {
-    this.utilsService.presentAlert({
-      header: 'Eliminar miniatura',
-      message: '¿Está seguro de que desea eliminar la miniatura?',
-      mode: 'ios',
-      buttons: [
-        {
-          text: 'No',
-        },
-        {
-          text: 'Sí',
-          handler: () => {
-            this.deleteMiniature(miniature);
-          },
-        },
-      ],
-    });
-  }
-  getPokemonImage(pokemonId: number): string {
-    return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonId}.png`;
+  getPokemonImage(pokemonId: string, isShiny: boolean = false): string {
+    const shinySuffix = isShiny ? 'shiny/' : '';
+    return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${shinySuffix}${pokemonId}.png`;
   }
 }

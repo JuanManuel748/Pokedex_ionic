@@ -6,13 +6,18 @@ export interface emptyPokemon {
 
 export interface ownedPokemon {
   id: number;
+  idPoke: string;
   name: string;
+  shiny: boolean;
+  /*
   ability: string;
   move_1: string;
   move_2: string;
   move_3: string;
   move_4: string;
   item: string;
+
+   */
 }
 export interface Party {
   id?: string;
