@@ -1,57 +1,106 @@
-@media (min-width: 769px) {
+.page-home ion-content, .page-home ion-list, .page-home ion-item-sliding, .page-home ion-item, .page-home item-nattive {
+  --background: transparent;
+  --inner-border-width: 0;
+}
+
+
+.page-home {
+  --background: repeating-linear-gradient(
+      0deg,
+      #79a0e3 0px,
+      #79a0e3 10px,
+      #668cd7 10px,
+      #668cd7 50px,
+      #79a0e3 50px,
+      #79a0e3 60px,
+      #5576c5 60px,
+      #5576c5 90px,
+      #79a0e3 90px,
+      #79a0e3 100px,
+      #4c69b8 100px,
+      #4c69b8 140px,
+      #79a0e3 140px,
+      #79a0e3 150px,
+      #4660b4 150px,
+      #4660b4 160px,
+      #79a0e3 160px,
+      #79a0e3 170px,
+      #5576c5 170px,
+      #5576c5 190px
+  ) !important;
+}
+
+.page-home ion-list,
+.page-home ion-item-sliding,
+.page-home ion-item {
+  background: transparent;
+}
+
+
+.pokemon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.pokemon {
+  display: flex;
+  width: 200px;
+  flex-direction: column;
+  align-items: center;
+  background: lightgreen;
+  border: 4px solid #8cbbf1;
+  border-radius: 20%;
+  background: repeating-linear-gradient(to bottom, #f5f7f9, #f5f7f9 15px, #c9e2f4 15px, #c9e2f4 25px);
+  color: #0d0d0d;
+}
+
+.pokemon h2 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  background: #f49545;
+  padding: 5px 10px;
+  border: 5px solid #dc731a;;
+  border-radius: 20%;
+}
+
+.pokemon .poke-img {
+  position: relative;
+}
+
+.pokemon .poke-img img {
+  display: block;
+}
+
+.pokemon .poke-img .sprite {
+  width: 150px;
+  margin-top: 10%;
+}
+
+
+.pokemon .poke-img .shiny-overlay {
+  position: absolute;
+  top: 0;
+  left: 60%;
+  width: 50%;
+  height: 50%;
+  pointer-events: none;
+}
+
+
+
+@media (max-width: 420px) {
   .add-update-modal {
     --height: 680px;
   }
-}
-.party-item {
-  --padding-top: 20px;
-
-  ion-avatar {
-    width: 70px;
-    height: 80px;
-    --border-radius: 15px;
+  .pokemon-grid {
+    justify-self: center;
   }
-
-  .name {
-    font-weight: 600;
-    padding-bottom: 5px;
+  .pokemon {
+    width: 350px;
   }
-
-  .data {
-    font-size: 13px;
-
-    strong {
-      font-weight: 500;
-    }
-  }
-
-  .option-btn {
-    font-size: 27px;
-  }
-
-  ion-chip {
-    font-size: 14px;
-    border-radius: 10px;
-    margin-left: 0;
+  .pokemon .poke-img .sprite {
+    width: 300px;
   }
 }
 
-.empty {
-  text-align: center;
-  padding: 60px;
-  opacity: 30%;
-
-  ion-icon {
-    font-size: 100px;
-  }
-}
-
-ion-card {
-  gap: 100px;
-  padding: 20px 0;
-  border-radius: 15px;
-}
-
-.miniatures-list {
-  padding-bottom: 70px;
-}
