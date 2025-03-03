@@ -4,16 +4,34 @@ export interface emptyPokemon {
   url: string;
 }
 
+export interface ownedPokemon {
+  id: number;
+  name: string;
+  ability: string;
+  move_1: string;
+  move_2: string;
+  move_3: string;
+  move_4: string;
+  item: string;
+}
+export interface Party {
+  id?: string;
+  name: string;
+  pokemon: ownedPokemon[];
+  userId: string;
+}
+
 export interface Pokemon {
   id: number;
   name: string;
   height: number;
   weight: number;
+  description: string;
   types: Type[];
   abilities: Ability[];
   sprites: Sprites;
   stats: Stats;
-  description: string;
+  moves: Move[];
 }
 
 export interface Sprites {
@@ -39,6 +57,16 @@ export interface Ability {
 }
 export interface Type {
   slot: number;
+  name: string;
+  url: string;
+}
+
+export interface Item {
+  name: string;
+  url: string | undefined;
+}
+
+export interface Move {
   name: string;
   url: string;
 }
@@ -89,6 +117,24 @@ export const examplePokemon: Pokemon = {
     specialDefense: 65,
     speed: 45
   },
-  description: 'Una rara semilla le fue plantada en el lomo al nacer. La planta brota y crece con este Pokemon.'
+  description: 'Una rara semilla le fue plantada en el lomo al nacer. La planta brota y crece con este Pokemon.',
+  moves: [
+    {
+      name: 'razor-wind',
+      url: 'https://pokeapi.co/api/v2/move/13/'
+    },
+    {
+      name: 'swords-dance',
+      url: 'https://pokeapi.co/api/v2/move/14/'
+    },
+    {
+      name: 'cut',
+      url: 'https://pokeapi.co/api/v2/move/15/'
+    },
+    {
+      name: 'bind',
+      url: 'https://pokeapi.co/api/v2/move/16/'
+    }
+  ]
 
 }

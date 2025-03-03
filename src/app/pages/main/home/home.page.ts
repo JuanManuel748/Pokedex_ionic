@@ -26,6 +26,8 @@ import { UtilsService } from 'src/app/services/utils.service';
 import { AddUpdateMiniatureComponent } from 'src/app/shared/components/add-update-miniature/add-update-miniature.component';
 import { HeaderComponent } from 'src/app/shared/components/header/header.component';
 import { QueryOptions } from 'src/app/services/query-options.interface';
+import { Party } from 'src/app/models/pokemon.model';
+import {AddUpdatePartyComponent} from "../../../shared/components/add-update-party/add-update-party.component";
 
 @Component({
   selector: 'app-home',
@@ -58,11 +60,61 @@ export class HomePage implements OnInit {
   supabaseService = inject(SupabaseService);
   miniatures: Miniature[] = [];
   loading: boolean = false;
+  parties: Party[] = [];
+
+
   constructor() {
     addIcons({ createOutline, trashOutline, bodyOutline, add });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getParties();
+  }
+
+  getParties() {
+    this.loading = true;
+    const user: User = this.utilsService.getLocalStoredUser()!;
+    this.firebaseService.getParties(user.uid).then((parties) => {
+      this.parties = parties;
+      this.loading = false;
+    }).catch((error) => {
+      console.error('Error al obtener los equipos:', error);
+      this.loading = false;
+    });
+  }
+
+  async addUpdateParty(party?: Party) {
+    let success = await this.utilsService.presentModal({
+      component: AddUpdatePartyComponent,
+      cssClass: 'add-update-modal',
+      componentProps: { party },
+    });
+    if (success) {
+      this.getParties();
+    }
+  }
+
+  async deleteParty(party: Party) {
+    const loading = await this.utilsService.loading();
+    await loading.present();
+    const user: User = this.utilsService.getLocalStoredUser()!;
+    await this.firebaseService.deleteParty(user.uid, party.id!);
+    this.parties = this.parties.filter(p => p.id !== party.id);
+    loading.dismiss();
+  }
+
+  async confirmDeleteParty(party: Party) {
+    this.utilsService.presentAlert({
+      header: 'Eliminar equipo',
+      message: '¿Está seguro de que desea eliminar el equipo?',
+      mode: 'ios',
+      buttons: [
+        { text: 'No' },
+        { text: 'Sí', handler: () => this.deleteParty(party) },
+      ],
+    });
+  }
+
 
   getMiniatures() {
     this.loading = true;
@@ -184,5 +236,8 @@ export class HomePage implements OnInit {
         },
       ],
     });
+  }
+  getPokemonImage(pokemonId: number): string {
+    return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonId}.png`;
   }
 }

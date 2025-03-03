@@ -31,6 +31,7 @@ import {
   limit,
 } from '@angular/fire/firestore';
 import { QueryOptions } from './query-options.interface';
+import { Party } from '../models/pokemon.model';
 
 @Injectable({
   providedIn: 'root',
@@ -143,5 +144,25 @@ export class FirebaseService {
 
   async deleteFile(path: string) {
     return deleteObject(ref(this.storage, path));
+  }
+
+  // Añadir métodos en FirebaseService para manejar equipos Pokémon
+  async getParties(userId: string): Promise<Party[]> {
+    const path = `users/${userId}/parties`;
+    const queryOptions: QueryOptions = {
+      orderBy: { field: 'name', direction: 'asc' },
+    };
+    const data = await this.getCollectionData(path, queryOptions).toPromise();
+    return (data as Party[]) || [];
+  }
+
+  async addParty(userId: string, party: Party): Promise<void> {
+    const path = `users/${userId}/parties`;
+    await this.addDocument(path, party);
+  }
+
+  async deleteParty(userId: string, partyId: string): Promise<void> {
+    const path = `users/${userId}/parties/${partyId}`;
+    await this.deleteDocument(path);
   }
 }
