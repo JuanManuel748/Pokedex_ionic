@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {emptyPokemon, Pokemon, Stats} from "../models/pokemon.model";
+import {Ability, emptyPokemon, Item, Move, Pokemon, Stats} from "../models/pokemon.model";
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +31,26 @@ export class PokeapiService {
     const texto = resJson.flavor_text_entries.find((texto: any) => texto.language.name === "es");
     return texto ? texto.flavor_text : "No se encontró descripción en español";
   }
+
+
+  async getItem(id: string): Promise<Item> {
+    let response = await fetch(`${this.baseUrl}item/${id}`);
+    return await response.json();
+  }
+
+  async getAbility(id: string): Promise<Ability> {
+    let response = await fetch(`${this.baseUrl}ability/${id}`);
+    return await response.json();
+  }
+
+  async getMove(id: string): Promise<Move> {
+    let response = await fetch(`${this.baseUrl}move/${id}`);
+    return await response.json();
+  }
+
+
+
+
 
 
 

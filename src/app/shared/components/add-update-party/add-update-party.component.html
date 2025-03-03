@@ -1,0 +1,33 @@
+
+<app-header [title]="party ? 'Actualizar equipo' : 'Añadir equipo'" [isModal]="true"></app-header>
+<ion-content>
+  <div class="party">
+    <div class="party_info">
+
+      <div class="name_party">{{ party?.name }}</div>
+      <div class="pokemons">
+        <div *ngFor="let pokemon of party?.pokemon">
+          <ion-avatar slot="start">
+            <img [src]="getPokemonImage(pokemon.id)" />
+          </ion-avatar>
+          <ion-chip color="primary" mode="ios" outline="true">{{ pokemon.name }}</ion-chip>
+        </div>
+    </div>
+      <div class="currentPokemon">
+        <div class="poke_selector">
+          <div class="search_poke"></div>
+          <div class="sprite_poke">
+            <img [src]="getPokemonImage(currentPokemon.id)" />
+          </div>
+        </div>
+        <div class="poke_info">
+          <div class="poke_name"></div>
+          <div class="poke_ability"></div>
+          <div class="poke_item"></div>
+          <div class="poke_moves"></div>
+        </div>
+      </div>
+
+
+  </div>
+</ion-content>
