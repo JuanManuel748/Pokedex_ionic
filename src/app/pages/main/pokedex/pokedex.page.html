@@ -40,7 +40,7 @@
         </div>
 
         <div class="alternate_poke">
-          <button (click)="alternate($event)" id="alternate_btn">{{ buttonText }}</button>
+          <button (click)="alternate($event)" id="alternate_btn"><p>{{ buttonText }}</p></button>
           <div class="description_poke" *ngIf="showDetails">
             <div class="_ngcontent-cet-c7"></div>
             <p>{{ selectedPokemon?.description }}</p>

@@ -51,7 +51,7 @@ ion-content {
   border-radius: 4px;
 }
 .name_poke button {
-  background: red;
+  background: #BD1023;
   border: none;
   cursor: pointer;
   border-radius: 25%;
@@ -72,7 +72,7 @@ ion-content {
 .sprite_poke button {
   border: none;
   cursor: pointer;
-  background-color: #5c686c;
+  background-color: #49aade;
   padding: 50px 0 50px 0;
 }
 .sprite_poke .left{
@@ -89,7 +89,7 @@ ion-content {
 }
 .sprite_poke .arrow {
   width: 20px;
-  height: 20px;
+  height: 50px;
 }
 
 .sprite_poke .poke-img {
@@ -106,7 +106,7 @@ ion-content {
 
 }
 .sprite_poke .poke-img .sprite {
-  width: 150px;
+  width: 200px;
   margin-top: 10%;
 }
 
@@ -174,4 +174,50 @@ ion-content {
 
 .pokemons ion-chip {
   margin: 8px;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20% 30% 20% 30%;
+  justify-items: center;
+  background: repeating-linear-gradient(0deg, #cce486, #cce486 2px, #bfd678 2px, #bfd678 4px);
+  border-radius: 20%;
+  border: 4px solid #7f7f7f;
+}
+
+form .poke_name {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+form .poke_name span, form .poke_shiny span {
+  margin-bottom: 10px;
+}
+form .poke_name input {
+  text-align: center;
+  border: 4px solid #006400;
+  border-radius: 8px;
+}
+
+form .poke_shiny{
+  margin-top: 5%;
+}
+
+
+form .poke_shiny {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+
+form .submit_btn {
+  --background: #006400;
+  color: white;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 1.2em;
 }

@@ -1,10 +1,16 @@
-import { Component, OnDestroy,OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonCardContent } from '@ionic/angular/standalone';
+import {
+  IonContent,
+  ToastController
+} from '@ionic/angular/standalone';
 import { HeaderComponent } from '../../../shared/components/header/header.component';
 import { PokeapiService } from '../../../services/pokeapi.service';
-import {Pokemon, examplePokemon, emptyPokemon} from '../../../models/pokemon.model';
+import { Pokemon } from '../../../models/pokemon.model';
+import { SensorService } from "../../../services/sensor.service";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: 'app-pokedex',
@@ -27,10 +33,65 @@ export class PokedexPage implements OnInit {
   isShiny: boolean = false;
 
 
-  constructor(private pokeapi: PokeapiService) { }
+  sensorService = inject(SensorService);
+  private accelerometerDataSubscription: Subscription | null = null;
+  accelerometerData: { x: number; y: number; z: number } = { x: 0, y: 0, z: 0 };
+
+  private lastX: number = 0;
+  private lastY: number = 0;
+  private lastZ: number = 0;
+  private shakeThreshold: number = 15; // Ajusta este valor según sea necesario
+
+
+  urlSound = "https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/1.ogg";
+
+
+  constructor(private pokeapi: PokeapiService, private toastController: ToastController) { }
 
   async ngOnInit() {
     this.setPokemon(await this.pokeapi.getById('1'));
+    this.sensorService.startListeningToMotion();
+    this.accelerometerDataSubscription = this.sensorService
+      .getAccelerometerData()
+      .subscribe((data) => {
+        this.accelerometerData = data;
+        this.detectShake(data);
+      });
+  }
+
+  ngOnDestroy() {
+    if (this.accelerometerDataSubscription) {
+      this.accelerometerDataSubscription.unsubscribe();
+    }
+    this.sensorService.stopListeningToMotion();
+  }
+
+  detectShake(data: { x: number; y: number; z: number }) {
+    const deltaX = Math.abs(data.x - this.lastX);
+    const deltaY = Math.abs(data.y - this.lastY);
+    const deltaZ = Math.abs(data.z - this.lastZ);
+
+    if (deltaX > this.shakeThreshold || deltaY > this.shakeThreshold || deltaZ > this.shakeThreshold) {
+      this.onShake();
+    }
+
+    this.lastX = data.x;
+    this.lastY = data.y;
+    this.lastZ = data.z;
+  }
+  onShake() {
+    if (this.selectedPokemon) {
+
+      const audio = new Audio(`https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/${this.selectedPokemon.id}.ogg`);
+      audio.play().catch(error => console.error('Error playing sound:', error));
+
+      this.toastController.create({
+        message: 'Shake detected!',
+        duration: 2000
+      }).then((toast) => {
+        toast.present();
+      });
+    }
   }
 
   async search(event: any) {

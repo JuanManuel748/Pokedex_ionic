@@ -11,21 +11,20 @@
           <div class="poke-img">
             <img *ngIf="poke.shiny" src="assets/shiny.png" class="shiny-overlay" />
             <img [src]="getPokemonImage(poke.idPoke, poke.shiny)" class="sprite"/>
-
           </div>
           <div class="poke-info">
             <h2>{{ poke.name }}</h2>
+            <div class="poke-actions">
+              <ion-item-option (click)="addUpdatePokemon(poke)" class="update">
+                <ion-icon class="option-btn" name="create-outline"></ion-icon>
+              </ion-item-option>
+              <ion-item-option (click)="confirmDeletePokemon(poke)" class="delete">
+                <ion-icon class="option-btn" name="trash-outline"></ion-icon>
+              </ion-item-option>
+            </div>
           </div>
         </div>
       </ion-item>
-      <<ion-item-options>
-      <ion-item-option (click)="addUpdatePokemon(poke)">
-        <ion-icon class="option-btn" name="create-outline"></ion-icon>
-      </ion-item-option>
-      <ion-item-option (click)="confirmDeletePokemon(poke)" color="danger">
-        <ion-icon class="option-btn" name="trash-outline"></ion-icon>
-      </ion-item-option>
-    </ion-item-options>
     </ion-item-sliding>
   </ion-list>
   <ion-list *ngIf="loading">
@@ -53,7 +52,7 @@
   </div>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="addUpdatePokemon()">
+    <ion-fab-button class="fab" (click)="addUpdatePokemon()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>

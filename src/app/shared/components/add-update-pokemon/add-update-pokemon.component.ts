@@ -46,7 +46,10 @@ export class AddUpdatePokemonComponent implements OnInit {
     this.currentPokemon.idPoke = "1";
     this.user = this.utilsService.getFromLocalStorage('user');
     if (this.Inputpokemon) {
-      this.setPokemon(this.Inputpokemon)
+      this.setPokemon(this.Inputpokemon);
+      console.log("InputPokemon: " + this.Inputpokemon);
+    } else {
+      console.log("No InputPokemon");
     }
   }
 

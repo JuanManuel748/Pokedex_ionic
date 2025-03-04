@@ -1,16 +1,18 @@
 @import './pokedex.pages.types';
 .pokedex {
+  border-radius: 20%;
 
 }
 /* DIBUJAR POKEDEX*/
 .top_pokedex {
+  border-radius: 20px 20px 0 0;
   background: #BD1023;
   height: 100px;
   position: relative;
 
 }
 .pokeball_top {
-  background: #89CFDB;
+  background: linear-gradient(to right, #BAE5F3, #B3E2EF);
   width: 100px;
   height: 50px;
   border-radius: 75px 75px 0 0;
@@ -18,8 +20,6 @@
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  //box-shadow: 0 -2px 0 2px #000; /* Añade un borde negro alrededor del medio círculo */
-
 }
 .top_pokedex::before {
   content: '';
@@ -34,6 +34,7 @@
 }
 
 .bottom_pokedex {
+  border-radius: 0 0 20px 20px ;
   background: #BD1023;
   height: 100px;
   position: relative;
@@ -63,7 +64,7 @@
 }
 
 .center_pokedex {
-  background: #89CFDB;
+  background: radial-gradient(circle at top left, #c5eaf8, #89CFDB);
   padding: 20px;
   text-align: center;
 }
@@ -234,17 +235,23 @@
 }
 
 .alternate_poke button {
-  background: #BD1023;
-  border-radius: 10px;
-  padding: 5px;
+  background: #006400;
   border: none;
   cursor: pointer;
   box-shadow: 0 2px 5px #0003;
-  margin-bottom: 20px;
-  font-size: 1.2em;
+  margin-top: 1%;
+  margin-bottom: 5%;
+  font-size: 1em;
+  border-radius: 20px;
+  padding: 10px;
+}
+
+.alternate_poke button p {
+  border-radius: 20px;
+  padding: 0;
 }
 .description_poke {
-  border-radius: 10px;
+  border-radius: 10%;
   font-size: 1.2em;
   height: 70%;
 
