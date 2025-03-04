@@ -1,23 +1,28 @@
 ion-content {
-  --background: var(--ion-color-primary);
+  --background:#c4e8f8;
+  --background-size: 10px 10px; /* Reduce el tamaño del patrón */
+  --background-position: 0 0, 5px 5px; /* Ajusta la posición para mejor alineación */
   --color: var(--ion-color-primary-contrast);
   --padding-top: 28px;
 }
 
+
+
 ion-item {
-  font-size: 14px;
+  font-size: 1.2em;
   color: var(--ion-color-light);
-  --background: var(--ion-color-primary);
+  --background: #8dd5f5;
 
   ion-icon {
     color: var(--ion-color-light);
   }
 
   &.active {
-    color: var(--ion-color-warning);
+    color: #BD1023;
+    font-weight: bold;
 
     ion-icon {
-      color: var(--ion-color-warning);
+      color: #BD1023;
     }
   }
 }
@@ -42,4 +47,11 @@ ion-avatar {
   width: 120px;
   height: 120px;
   margin: 0 auto;
+  border: #8dd5f5 5px solid;
+}
+
+.page_icon {
+  width: 40px;
+  margin: 5px;
+  margin-right: 20px;
 }

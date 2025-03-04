@@ -7,15 +7,15 @@
     </ion-avatar>
     <h4>{{user.name}}</h4>
 
-    <ion-menu-toggle auto-hide="false" *ngFor="let page of pages">
+    <ion-menu-toggle auto-hide="false" *ngFor="let pa of pages">
       <ion-item
-        [routerLink]="page.url"
+        [routerLink]="pa.url"
         routerLinkActive="active"
         routerDirection="root"
         detail
       >
-        <ion-icon slot="start" [name]="page.icon"></ion-icon>
-        <ion-label>{{page.title}}</ion-label>
+        <img  [src]="pa.png" alt="UserIcon" class="page_icon"/>
+        <ion-label>{{pa.title}}</ion-label>
       </ion-item>
     </ion-menu-toggle>
   </ion-content>

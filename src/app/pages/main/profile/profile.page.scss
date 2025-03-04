@@ -1,7 +1,40 @@
+.page ion-content, .page ion-list, .page ion-item-sliding, .page ion-item, .page item-nattive {
+  --background: transparent;
+}
+.page {
+  --background: repeating-linear-gradient(
+      0deg,
+      #79a0e3 0px,
+      #79a0e3 10px,
+      #668cd7 10px,
+      #668cd7 50px,
+      #79a0e3 50px,
+      #79a0e3 60px,
+      #5576c5 60px,
+      #5576c5 90px,
+      #79a0e3 90px,
+      #79a0e3 100px,
+      #4c69b8 100px,
+      #4c69b8 140px,
+      #79a0e3 140px,
+      #79a0e3 150px,
+      #4660b4 150px,
+      #4660b4 160px,
+      #79a0e3 160px,
+      #79a0e3 170px,
+      #5576c5 170px,
+      #5576c5 190px
+  ) !important;
+}
+
+
+
+
 ion-avatar {
   width: 140px;
   height: 140px;
   margin: 0 auto;
+  border: #0d0d0d solid 2px;
 }
 
 .photo-btn {
@@ -9,8 +42,32 @@ ion-avatar {
   bottom: 25px;
 }
 
-ion-item {
-  padding-top: 15px;
+.nameInput {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nameInput ion-input {
+  flex: 1;
+  background: #8dd5f5;
+  border-radius: 20px;
+  margin-right: 5px;
+  max-width: 250px;
+  position: relative;
+  z-index: 1;
+}
+
+
+.save button {
+  background: #8dbef5;
+  color: black;
+  font-weight: bold;
+  margin-top: 10%;
+  font-size: 1.4em;
+  border-radius: 20px;
+  padding: 10px;
 }
 
 .empty-icon {

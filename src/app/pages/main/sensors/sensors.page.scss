@@ -1,0 +1,54 @@
+.page ion-content, .page ion-list, .page ion-item-sliding, .page ion-item, .page item-nattive {
+  --background: transparent;
+}
+.page {
+  --background: repeating-linear-gradient(
+      0deg,
+      #79a0e3 0px,
+      #79a0e3 10px,
+      #668cd7 10px,
+      #668cd7 50px,
+      #79a0e3 50px,
+      #79a0e3 60px,
+      #5576c5 60px,
+      #5576c5 90px,
+      #79a0e3 90px,
+      #79a0e3 100px,
+      #4c69b8 100px,
+      #4c69b8 140px,
+      #79a0e3 140px,
+      #79a0e3 150px,
+      #4660b4 150px,
+      #4660b4 160px,
+      #79a0e3 160px,
+      #79a0e3 170px,
+      #5576c5 170px,
+      #5576c5 190px
+  ) !important;
+}
+
+.gps_card{
+  background-color: #d3ecf6;
+  background-image: linear-gradient(45deg, #c4e8f8 25%, transparent 25%, transparent 75%, #c4e8f8 75%, #c4e8f8), linear-gradient(-45deg, #c4e8f8 25%, transparent 25%, transparent 75%, #c4e8f8 75%, #c4e8f8);
+  background-size: 20px 20px;
+  border: #67bcea 5px solid;
+  border-radius: 20px;
+}
+
+.accelerometer_card {
+
+  background: repeating-linear-gradient(0deg, #cce486, #cce486 2px, #bfd678 2px, #bfd678 4px);
+  border-radius: 20px;
+  border: 4px solid #7f7f7f;
+}
+
+ion-card ion-card-header ion-card-title {
+  color: darkblue;
+  font-size: 2.5em;
+}
+
+ion-card ion-card-content p{
+  color: #013288;
+  font-size: 1.2em;
+
+}

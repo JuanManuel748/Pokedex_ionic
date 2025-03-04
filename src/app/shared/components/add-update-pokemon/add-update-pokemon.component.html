@@ -32,12 +32,12 @@
             </div>
             <div class="poke_shiny">
               <span>Shiny: </span>
-              <input type="checkbox" [(ngModel)]="currentPokemon.shiny" name="pokemonShiny"/>
+              <input type="checkbox" [(ngModel)]="currentPokemon.shiny" name="pokemonShiny" class="shiny_input"/>
 
             </div>
             <ion-button
               mode="ios"
-              class="ion-margin"
+              class="submit_btn"
               type="submit"
               [disabled]="form.valid"
             >{{Inputpokemon ? 'Actualizar' : 'Añadir'}}

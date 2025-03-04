@@ -99,11 +99,11 @@ export class HomePage implements OnInit {
 
   }
 
-  async addUpdatePokemon(pokemon?: ownedPokemon) {
+  async addUpdatePokemon(Inputpokemon?: ownedPokemon) {
     let success = await this.utilsService.presentModal({
       component: AddUpdatePokemonComponent,
       cssClass: 'add-update-modal',
-      componentProps: { pokemon },
+      componentProps: { Inputpokemon },
     });
     if (success) {
       this.getPokemons();

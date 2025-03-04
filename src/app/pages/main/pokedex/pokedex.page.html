@@ -1,5 +1,5 @@
 <app-header [showMenuButton]="true" title="Pokedex"></app-header>
-<ion-content class="ion-padding" color="light">
+<ion-content class="ion-padding page">
   <div class="pokedex">
     <div class="top_pokedex"><div class="pokeball_top"></div></div>
     <div class="center_pokedex">
@@ -40,13 +40,13 @@
         </div>
 
         <div class="alternate_poke">
-          <button (click)="alternate($event)" id="alternate_btn">{{ buttonText }}</button>
-          <div class="description_poke" *ngIf="showDetails">
+          <button (click)="alternate($event)" id="alternate_btn"><p>{{ buttonText }}</p></button>
+          <div class="description_poke" [ngClass]="{'scale-up-horizontal-center': showDetails}" *ngIf="showDetails">
             <div class="_ngcontent-cet-c7"></div>
             <p>{{ selectedPokemon?.description }}</p>
             <div class="_ngcontent-cet-c7"></div>
           </div>
-          <div class="stats_poke" *ngIf="showStats">
+          <div class="stats_poke" [ngClass]="{'scale-up-horizontal-center': showStats}" *ngIf="showStats">
             <div class="stat">
               <span class="tag">HP:</span> {{ selectedPokemon?.stats?.hp }}
             </div>

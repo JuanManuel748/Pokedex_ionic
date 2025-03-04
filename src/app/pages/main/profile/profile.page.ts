@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonAvatar, IonButton, IonIcon, IonLabel, IonItem } from '@ionic/angular/standalone';
+import {IonContent, IonAvatar, IonButton, IonIcon, IonLabel, IonItem, IonInput} from '@ionic/angular/standalone';
 import { UtilsService } from 'src/app/services/utils.service';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { SupabaseService } from 'src/app/services/supabase.service';
@@ -15,7 +15,7 @@ import { HeaderComponent } from "../../../shared/components/header/header.compon
   templateUrl: './profile.page.html',
   styleUrls: ['./profile.page.scss'],
   standalone: true,
-  imports: [IonItem, IonLabel, IonIcon, IonButton, IonAvatar, IonContent, CommonModule, FormsModule, HeaderComponent],
+  imports: [IonItem, IonLabel, IonIcon, IonButton, IonAvatar, IonContent, CommonModule, FormsModule, HeaderComponent, IonInput],
 })
 export class ProfilePage implements OnInit {
   utilsService = inject(UtilsService);
@@ -71,6 +71,31 @@ export class ProfilePage implements OnInit {
       })
       .finally(() => {
         loading.dismiss();
+      });
+  }
+
+  save($event: MouseEvent) {
+    this.firebaseService.updateUser(this.user.name);
+    const path: string = `users/${this.user.uid}`;
+    this.firebaseService.updateDocument(path, { name: this.user.name })
+      .then(async (res) => {
+        this.utilsService.saveInLocalStorage('user', this.user);
+        this.utilsService.presentToast({
+          message: 'Nombre actualizado exitosamente',
+          duration: 1500,
+          color: 'success',
+          position: 'middle',
+          icon: 'checkmark-circle-outline',
+        });
+      })
+      .catch((error) => {
+        this.utilsService.presentToast({
+          message: error.message,
+          duration: 2500,
+          color: 'danger',
+          position: 'middle',
+          icon: 'alert-circle-outline',
+        });
       });
   }
 }
