@@ -79,7 +79,6 @@ export class AddUpdatePokemonComponent implements OnInit {
 
   async previousPokemon(event: any) {
     this.currentPokemon.idPoke = (parseInt(this.currentPokemon.idPoke) - 1).toString();
-    //this.setPokemon(this.currentPokemon);
   }
 
   async nextPokemon(event: any) {
@@ -101,6 +100,8 @@ export class AddUpdatePokemonComponent implements OnInit {
   validate(): boolean {
     return true;
   }
+
+
 
   async createPokemon() {
     const loading = await this.utilsService.loading();

@@ -15,9 +15,11 @@
         </div>
 
         <div class="content">
-          <div class="img_poke">
-
-            <img [src]="selectedPokemon?.sprites?.front_default" alt="Foto del Pokémon" *ngIf="selectedPokemon?.sprites?.front_default"/>
+          <div class="poke-img">
+            <button class="shiny_btn" (click)="alternateShiny($event)">
+              <img [src]="isShiny ? 'assets/shiny.png' : 'assets/noShiny.png'" class="shiny-overlay" />
+            </button>
+            <img class="sprite_poke" [src]="getPokemonImage(selectedPokemon?.id?.toString(),this.isShiny)" alt="Foto del Pokémon" *ngIf="selectedPokemon?.sprites?.front_default &&  selectedPokemon?.id"/>
           </div>
           <div class="types_poke">
             <span

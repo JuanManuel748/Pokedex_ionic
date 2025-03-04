@@ -24,6 +24,7 @@ export class PokedexPage implements OnInit {
   showStats: boolean = false;
   searchInput: any;
   buttonText: string = "Ver estadísticas";
+  isShiny: boolean = false;
 
 
   constructor(private pokeapi: PokeapiService) { }
@@ -68,6 +69,15 @@ export class PokedexPage implements OnInit {
 
   getTypeClass(typeName: string): string {
     return `type ${typeName.toLowerCase()}`;
+  }
+
+  alternateShiny(event: any) {
+    this.isShiny = !this.isShiny;
+  }
+
+  getPokemonImage(pokemonId: string | undefined, isShiny: boolean = false): string {
+    const shinySuffix = isShiny ? 'shiny/' : '';
+    return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${shinySuffix}${pokemonId}.png`;
   }
 
 
