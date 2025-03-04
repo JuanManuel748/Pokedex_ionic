@@ -18,14 +18,14 @@
           </div>
         </div>
       </ion-item>
-      <ion-item-options>
-        <ion-item-option (click)="addUpdatePokemon(poke)">
-          <ion-icon class="option-btn" name="create-outline"></ion-icon>
-        </ion-item-option>
-        <ion-item-option (click)="confirmDeletePokemon(poke)" color="danger">
-          <ion-icon class="option-btn" name="trash-outline"></ion-icon>
-        </ion-item-option>
-      </ion-item-options>
+      <<ion-item-options>
+      <ion-item-option (click)="addUpdatePokemon(poke)">
+        <ion-icon class="option-btn" name="create-outline"></ion-icon>
+      </ion-item-option>
+      <ion-item-option (click)="confirmDeletePokemon(poke)" color="danger">
+        <ion-icon class="option-btn" name="trash-outline"></ion-icon>
+      </ion-item-option>
+    </ion-item-options>
     </ion-item-sliding>
   </ion-list>
   <ion-list *ngIf="loading">
@@ -48,8 +48,8 @@
   </ion-list>
 
   <div *ngIf="!loading && pokemons.length === 0 " class="empty">
-    <ion-icon name="body-outline"></ion-icon>
-    <h3>Aún no has agregado ningun pokemon</h3>
+    <p>Aún no has agregado ningun pokemon</p>
+    <img src="assets/error.webp" alt="Imagen de error">
   </div>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
