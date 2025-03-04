@@ -1,6 +1,6 @@
 <app-header [showMenuButton]="true" title="Sensores"></app-header>
-<ion-content class="ion-padding">
-  <ion-card>
+<ion-content class="page">
+  <ion-card class="gps_card">
     <ion-card-header>
       <ion-card-title>GPS</ion-card-title>
     </ion-card-header>
@@ -10,7 +10,7 @@
       <p>Precisión: {{ position?.coords?.accuracy }} metros</p>
     </ion-card-content>
   </ion-card>
-  <ion-card>
+  <ion-card class="accelerometer_card">
     <ion-card-header>
       <ion-card-title>Acelerómetro</ion-card-title>
     </ion-card-header>

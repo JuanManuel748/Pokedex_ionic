@@ -1,5 +1,6 @@
 <app-header title="Perfil" [showMenuButton]="true"></app-header>
-<ion-content class="ion-padding-top ion-text-center">
+<ion-content class="ion-padding-top ion-text-center page">
+  <div class="content">
   <ion-avatar>
     <img *ngIf="user.image" [src]="user.image" />
     <ion-icon *ngIf="!user.image" class="empty-icon" name="person-circle-outline"></ion-icon>
@@ -8,10 +9,12 @@
     <ion-icon name="camera-outline"></ion-icon>
   </ion-button>
 
-  <h2>{{user.name}}</h2>
+    <div class="nameInput">
+      <ion-input type="text" placeholder="Nombre" [(ngModel)]="user.name"></ion-input>
+    </div>
 
-  <ion-item button detail>
-    <ion-icon color="primary" slot="start" name="person-outline"></ion-icon>
-    <ion-label>Editar perfil</ion-label>
-  </ion-item>
+  <div class="save">
+    <button (click)="save($event)">Guardar</button>
+  </div>
+  </div>
 </ion-content>

@@ -3,6 +3,34 @@
   border-radius: 20%;
 
 }
+.page ion-content, .page ion-list, .page ion-item-sliding, .page ion-item, .page item-nattive {
+  --background: transparent;
+}
+.page {
+  --background: repeating-linear-gradient(
+      0deg,
+      #79a0e3 0px,
+      #79a0e3 10px,
+      #668cd7 10px,
+      #668cd7 50px,
+      #79a0e3 50px,
+      #79a0e3 60px,
+      #5576c5 60px,
+      #5576c5 90px,
+      #79a0e3 90px,
+      #79a0e3 100px,
+      #4c69b8 100px,
+      #4c69b8 140px,
+      #79a0e3 140px,
+      #79a0e3 150px,
+      #4660b4 150px,
+      #4660b4 160px,
+      #79a0e3 160px,
+      #79a0e3 170px,
+      #5576c5 170px,
+      #5576c5 190px
+  ) !important;
+}
 /* DIBUJAR POKEDEX*/
 .top_pokedex {
   border-radius: 20px 20px 0 0;
@@ -315,3 +343,20 @@
       grid-template-columns: 1fr;
     }
 }
+
+
+@keyframes scale-up-horizontal-center {
+  0% {
+    transform: scaleX(0.2);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+.scale-up-horizontal-center {
+  animation: scale-up-horizontal-center 0.4s;
+}
+
+
+
