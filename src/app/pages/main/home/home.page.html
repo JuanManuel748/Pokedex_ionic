@@ -9,7 +9,7 @@
       <ion-item>
         <div class="pokemon">
           <div class="poke-img">
-            <img *ngIf="poke.shiny" src="assets/shiny.png" class="shiny-overlay" />
+            <img *ngIf="poke.shiny" src="../../../../assets/img/shiny.png" class="shiny-overlay" />
             <img [src]="getPokemonImage(poke.idPoke, poke.shiny)" class="sprite"/>
           </div>
           <div class="poke-info">
@@ -48,7 +48,7 @@
 
   <div *ngIf="!loading && pokemons.length === 0 " class="empty">
     <p>Aún no has agregado ningun pokemon</p>
-    <img src="assets/error.webp" alt="Imagen de error">
+    <img src="../../../../assets/img/error.webp" alt="Imagen de error">
   </div>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">

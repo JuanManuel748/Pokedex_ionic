@@ -40,7 +40,6 @@ import {AddUpdatePokemonComponent} from "../../../shared/components/add-update-p
     IonAvatar,
     IonItem,
     IonItemSliding,
-    IonItemOptions,
     IonItemOption,
     IonLabel,
     IonFabButton,

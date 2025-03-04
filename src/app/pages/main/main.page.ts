@@ -34,22 +34,22 @@ export class MainPage implements OnInit {
     {
       title: 'Inicio',
       url: '/main/home',
-      png: 'assets/home.png',
+      png: 'assets/img/home.png',
     },
     {
       title: 'Pokedex',
       url: '/main/pokedex',
-      png: 'assets/pokeballBlack.png', // Asegúrate de que esta ruta sea correcta
+      png: 'assets/img/pokeballBlack.png', // Asegúrate de que esta ruta sea correcta
     },
     {
       title: 'Perfil',
       url: '/main/profile',
-      png: 'assets/user.png'
+      png: 'assets/img/user.png'
     },
     {
       title: 'Sensores',
       url: '/main/sensors',
-      png: 'assets/microchip.png',
+      png: 'assets/img/microchip.png',
     }
   ];
 

@@ -11,13 +11,13 @@
             id="search_input"
             [(ngModel)]="searchInput"
           />
-          <button (click)="search($event)"><img src="assets/lupa.png" alt="Buscar"></button>
+          <button (click)="search($event)"><img src="../../../../assets/img/lupa.png" alt="Buscar"></button>
         </div>
 
         <div class="content">
           <div class="poke-img">
             <button class="shiny_btn" (click)="alternateShiny($event)">
-              <img [src]="isShiny ? 'assets/shiny.png' : 'assets/noShiny.png'" class="shiny-overlay" />
+              <img [src]="isShiny ? 'assets/img/shiny.png' : 'assets/img/noShiny.png'" class="shiny-overlay" />
             </button>
             <img class="sprite_poke" [src]="getPokemonImage(selectedPokemon?.id?.toString(),this.isShiny)" alt="Foto del Pokémon" *ngIf="selectedPokemon?.sprites?.front_default &&  selectedPokemon?.id"/>
           </div>

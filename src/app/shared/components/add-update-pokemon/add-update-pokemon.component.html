@@ -12,16 +12,16 @@
                 id="search_input"
                 [(ngModel)]="searchInput"
               />
-              <button (click)="search($event)"><img src="assets/lupa.png" alt="Buscar"></button>
+              <button (click)="search($event)"><img src="../../../../assets/img/lupa.png" alt="Buscar"></button>
             </div>
           </div>
           <div class="sprite_poke">
-            <button class="left" (click)="previousPokemon($event)"><img class="arrow" src="assets/arrow_left.png" alt="Anterior" ></button>
+            <button class="left" (click)="previousPokemon($event)"><img class="arrow" src="../../../../assets/img/arrow_left.png" alt="Anterior" ></button>
             <div class="poke-img">
-              <img *ngIf="currentPokemon.shiny" src="assets/shiny.png" class="shiny-overlay" />
+              <img *ngIf="currentPokemon.shiny" src="../../../../assets/img/shiny.png" class="shiny-overlay" />
               <img [src]="getPokemonImage(currentPokemon.idPoke, currentPokemon.shiny)" class="sprite"/>
             </div>
-            <button class="right" (click)="nextPokemon($event)"><img class="arrow" src="assets/arrow_right.png" alt="Siguiente"></button>
+            <button class="right" (click)="nextPokemon($event)"><img class="arrow" src="../../../../assets/img/arrow_right.png" alt="Siguiente"></button>
           </div>
         </div>
         <div class="poke_info">
