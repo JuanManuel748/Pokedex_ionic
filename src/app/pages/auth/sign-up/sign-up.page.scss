@@ -1,0 +1,35 @@
+.page ion-content, .page ion-list, .page ion-item-sliding, .page ion-item, .page item-nattive {
+  --background: transparent;
+}
+.page {
+  --background: #d3ecf6;
+
+}
+.content {
+  background-color: #d3ecf6;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(45deg, #c4e8f8 25%, transparent 25%, transparent 75%, #c4e8f8 75%, #c4e8f8), linear-gradient(-45deg, #c4e8f8 25%, transparent 25%, transparent 75%, #c4e8f8 75%, #c4e8f8);
+  background-size: 20px 20px;
+}
+.signup-form {
+  margin: 20% 5% 0 5%;
+  width: 100%;
+  text-align: center;
+}
+
+.signup-form .logo{
+  justify-self: center;
+  width: 100%;
+}
+
+.ion-text-end {
+  color:  #0038bd;
+  text-decoration: underline #004acd;
+}
+
+@media (min-width: 769px) {
+  .signup-form {
+    width: 500px;
+  }
+}

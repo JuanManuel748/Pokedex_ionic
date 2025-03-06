@@ -5,7 +5,7 @@ import { addIcons } from 'ionicons';
 import {
   IonContent,
   IonMenu,
-  IonMenuToggle, IonLabel, IonItem, IonIcon, IonRouterOutlet, IonTitle, IonFooter, IonToolbar, IonAvatar } from '@ionic/angular/standalone';
+  IonMenuToggle, IonLabel, IonItem, IonIcon, IonRouterOutlet, IonFooter, IonAvatar } from '@ionic/angular/standalone';
 import { homeOutline, personOutline, logOutOutline, personCircleOutline, hardwareChipOutline } from 'ionicons/icons';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { HeaderComponent } from "../../shared/components/header/header.component";
@@ -39,7 +39,7 @@ export class MainPage implements OnInit {
     {
       title: 'Pokedex',
       url: '/main/pokedex',
-      png: 'assets/img/pokeballBlack.png', // Asegúrate de que esta ruta sea correcta
+      png: 'assets/img/pokeballBlack.png',
     },
     {
       title: 'Perfil',

@@ -31,6 +31,10 @@ export class UtilsService {
     toast.present();
   }
 
+  getLocalStorageUser() {
+    return this.getFromLocalStorage('user');
+  }
+
   urlTree(url: string) {
     return this.router.parseUrl(url);
   }
