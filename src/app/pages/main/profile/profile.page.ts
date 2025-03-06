@@ -33,6 +33,7 @@ export class ProfilePage implements OnInit {
 
 
   async takeImage() {
+    let loading;
     try {
       const image = await this.utilsService.takePicture("Imagen de perfil");
       if (!image || !image.dataUrl) {
@@ -40,10 +41,13 @@ export class ProfilePage implements OnInit {
         return;
       }
 
-      const loading = await this.utilsService.loading();
+      loading = await this.utilsService.loading();
       await loading.present();
-
-      const imagePath = `users/${this.user.uid}/profile`;
+      if (this.user.image) {
+        const oldImagePath = this.supabaseService.getFilePath(this.user.image);
+        await this.supabaseService.deleteFile(oldImagePath!);
+      }
+      const imagePath = `users/${this.user.uid}/profile${Date.now()}`;
       const imageUrl = await this.supabaseService.uploadImage(imagePath, image.dataUrl);
       if (!imageUrl) {
         console.log("No se pudo subir la imagen a Supabase.");
@@ -71,11 +75,11 @@ export class ProfilePage implements OnInit {
         icon: 'alert-circle-outline'
       });
     } finally {
-      const loading = await this.utilsService.loading();
-      await loading.dismiss();
+      if (loading) {
+        await loading.dismiss();
+      }
     }
   }
-
 
   save($event: MouseEvent) {
     if (!this.user) {console.log("No hay ningun usuario logeado"); return;}
