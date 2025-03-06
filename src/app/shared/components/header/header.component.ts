@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, HostListener, inject, Input, OnInit } from '@angular/core';
 import {
   IonHeader,
   IonToolbar,
@@ -8,7 +8,7 @@ import {
   IonBackButton,
   IonButton,
   IonIcon,
-  IonMenuButton
+  IonMenuButton,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { closeCircleOutline } from 'ionicons/icons';
@@ -48,4 +48,13 @@ export class HeaderComponent implements OnInit {
   dismissModal() {
     this.utilsService.dismissModal();
   }
+
+
+
+
+
+
+
+
+
 }

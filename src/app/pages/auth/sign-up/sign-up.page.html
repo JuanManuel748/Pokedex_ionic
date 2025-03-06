@@ -1,10 +1,9 @@
 <app-header title="Registro" backButtonURL="/auth"></app-header>
 
-<ion-content>
-  <div class="d-flex-center">
+<ion-content class="page">
+  <div class="d-flex-center content">
     <form [formGroup]="form" class="signup-form" (ngSubmit)="submit()">
       <app-logo></app-logo>
-
 
       <app-custom-input
         icon="person-outline"
@@ -60,6 +59,5 @@
         <ion-icon slot="end" name="person-add-outline"></ion-icon>
       </ion-button>
     </form>
-
   </div>
 </ion-content>

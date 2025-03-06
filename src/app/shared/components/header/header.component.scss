@@ -1,7 +1,35 @@
 ion-header, ion-header ion-toolbar, ion-header ion-toolbar ion-title {
   background-color: #8dd5f5;
+  color: #0634a4;
 }
 
 .wmm {
   font-size: 13px;
+}
+
+
+
+ion-button {
+  --background: #5576c5;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  margin: 5px 10px;
+}
+.install_btn img {
+  width: 25px;
+}
+
+.install_btn h3 {
+  margin: 0 10px;
+  font-size: 1em;
+  font-weight: bold;
+  color: white;
+}
+
+
+@media (max-width: 400px) {
+  .install_btn h3 {
+    display: none;
+  }
 }
