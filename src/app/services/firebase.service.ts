@@ -31,7 +31,6 @@ import {
   limit,
 } from '@angular/fire/firestore';
 import { QueryOptions } from './query-options.interface';
-import {ownedPokemon, Party} from '../models/pokemon.model';
 
 @Injectable({
   providedIn: 'root',
@@ -146,23 +145,5 @@ export class FirebaseService {
     return deleteObject(ref(this.storage, path));
   }
 
-  // Añadir métodos en FirebaseService para manejar ownedPokemon
-  async getPokemons(userId: string): Promise<ownedPokemon[]> {
-    const path = `users/${userId}/pokemons`;
-    const queryOptions: QueryOptions = {
-      orderBy: { field: 'name', direction: 'asc' },
-    };
-    const data = await this.getCollectionData(path, queryOptions).toPromise();
-    return (data as ownedPokemon[]) || [];
-  }
-
-  async addPokemon(userId: string, pokemon: ownedPokemon): Promise<void> {
-    const path = `users/${userId}/pokemons`;
-    await this.addDocument(path, pokemon);
-  }
-
-  async deletePokemon(userId: string, pokemonId: string): Promise<void> {
-    const path = `users/${userId}/pokemons/${pokemonId}`;
-    await this.deleteDocument(path);
-  }
+  
 }

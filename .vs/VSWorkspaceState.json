@@ -1,0 +1,17 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\pages\\main",
+    "\\src\\app\\pages\\main\\home",
+    "\\src\\app\\pages\\main\\pokedex",
+    "\\src\\app\\pages\\main\\profile",
+    "\\src\\app\\pages\\main\\sensors",
+    "\\src\\app\\shared",
+    "\\src\\app\\shared\\components",
+    "\\src\\app\\shared\\components\\logo"
+  ],
+  "SelectedNode": "\\src\\app",
+  "PreviewInSolutionExplorer": false
+}

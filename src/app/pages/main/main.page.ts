@@ -37,20 +37,10 @@ export class MainPage implements OnInit {
       png: 'assets/img/home.png',
     },
     {
-      title: 'Pokedex',
-      url: '/main/pokedex',
-      png: 'assets/img/pokeballBlack.png',
-    },
-    {
       title: 'Perfil',
       url: '/main/profile',
       png: 'assets/img/user.png'
     },
-    {
-      title: 'Sensores',
-      url: '/main/sensors',
-      png: 'assets/img/microchip.png',
-    }
   ];
 
   user: User;
